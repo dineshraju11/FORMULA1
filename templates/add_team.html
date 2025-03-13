@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{% if edit %}Edit{% else %}Add{% endif %} Team</h2>
+<form method="post">
+    Name: <input type="text" name="name" value="{{ name if edit else '' }}" {% if edit %}readonly{% endif %}><br>
+    Year Founded: <input type="number" name="founded" value="{{ team['Year Founded'] if edit else '' }}"><br>
+    Total Pole Positions: <input type="number" name="poles" value="{{ team['Total Pole Positions'] if edit else '' }}"><br>
+    Total Race Wins: <input type="number" name="wins" value="{{ team['Total Race Wins'] if edit else '' }}"><br>
+    Total Constructor Titles: <input type="number" name="titles" value="{{ team['Total Constructor Titles'] if edit else '' }}"><br>
+    Last Season Position: <input type="number" name="position" value="{{ team['Last Season Position'] if edit else '' }}"><br>
+    <button type="submit">{% if edit %}Update{% else %}Add{% endif %} Team</button>
+</form>
+{% endblock %}
