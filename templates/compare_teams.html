@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-center mb-4">Compare Teams</h2>
+
+<form method="get" class="row justify-content-center mb-4">
+    <div class="col-md-4 mb-3">
+        <label for="team1" class="form-label">Team 1 Name:</label>
+        <input type="text" name="team1" id="team1" class="form-control" placeholder="Enter first team name" required value="{{ request.query_params.team1 }}">
+    </div>
+    <div class="col-md-4 mb-3">
+        <label for="team2" class="form-label">Team 2 Name:</label>
+        <input type="text" name="team2" id="team2" class="form-control" placeholder="Enter second team name" required value="{{ request.query_params.team2 }}">
+    </div>
+    <div class="text-center mb-4">
+        <button type="submit" class="btn btn-primary">Compare</button>
+    </div>
+</form>
+
+{% if team1 and team2 %}
+<h3 class="text-center mb-4">Comparison Result</h3>
+<table class="table table-striped table-bordered align-middle text-center">
+    <thead class="table-dark">
+        <tr>
+            <th>Attribute</th>
+            <th>{{ team1.name }}</th>
+            <th>{{ team2.name }}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>Year Founded</td><td>{{ team1['Year Founded'] }}</td><td>{{ team2['Year Founded'] }}</td></tr>
+        <tr><td>Total Pole Positions</td><td>{{ team1['Total Pole Positions'] }}</td><td>{{ team2['Total Pole Positions'] }}</td></tr>
+        <tr><td>Total Race Wins</td><td>{{ team1['Total Race Wins'] }}</td><td>{{ team2['Total Race Wins'] }}</td></tr>
+        <tr><td>Total Constructor Titles</td><td>{{ team1['Total Constructor Titles'] }}</td><td>{{ team2['Total Constructor Titles'] }}</td></tr>
+        <tr><td>Last Season Position</td><td>{{ team1['Last Season Position'] }}</td><td>{{ team2['Last Season Position'] }}</td></tr>
+    </tbody>
+</table>
+{% elif team1 or team2 %}
+<p class="text-center text-danger">One of the teams is not found. Please check the names.</p>
+{% endif %}
+
+<div class="d-flex justify-content-center mt-4">
+    <a href="/" class="btn btn-secondary">Back to Home</a>
+</div>
+{% endblock %}

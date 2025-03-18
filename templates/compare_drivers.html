@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-center my-4">Compare Drivers</h2>
+
+<!-- Compare Form -->
+<form method="post" action="/drivers/compare" class="border p-4 rounded shadow-sm bg-light">
+    <div class="mb-3">
+        <label for="driver1" class="form-label">Driver 1:</label>
+        <select name="driver1" id="driver1" class="form-select" required>
+            {% for d in drivers %}
+                <option value="{{ d }}">{{ d }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label for="driver2" class="form-label">Driver 2:</label>
+        <select name="driver2" id="driver2" class="form-select" required>
+            {% for d in drivers %}
+                <option value="{{ d }}">{{ d }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-success w-50">Compare Drivers</button>
+    </div>
+</form>
+
+<!-- Comparison Table -->
+{% if driver1 and driver2 %}
+<h3 class="text-center my-4">Comparison between {{ name1 }} and {{ name2 }}</h3>
+<table class="table table-bordered text-center bg-white">
+    <thead class="table-dark">
+        <tr>
+            <th>Stat</th>
+            <th>{{ name1 }}</th>
+            <th>{{ name2 }}</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for key, val1 in driver1.items() %}
+        {% if key != "Team" %}
+        <tr>
+            <td>{{ key }}</td>
+            <td style="background-color: {% if (key == 'Age' and val1 < driver2[key]) or (key != 'Age' and val1 > driver2[key]) %}lightgreen{% endif %}">{{ val1 }}</td>
+            <td style="background-color: {% if (key == 'Age' and driver2[key] < val1) or (key != 'Age' and driver2[key] > val1) %}lightgreen{% endif %}">{{ driver2[key] }}</td>
+        </tr>
+        {% endif %}
+    {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+{% endblock %}
