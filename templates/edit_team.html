@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Team</h2>
+<form method="post" action="/teams/edit/{{ name }}">
+    Year Founded: <input type="number" name="founded" value="{{ team['Year Founded'] }}" required><br>
+    Total Pole Positions: <input type="number" name="poles" value="{{ team['Total Pole Positions'] }}" required><br>
+    Total Race Wins: <input type="number" name="wins" value="{{ team['Total Race Wins'] }}" required><br>
+    Total Constructor Titles: <input type="number" name="titles" value="{{ team['Total Constructor Titles'] }}" required><br>
+    Last Season Position: <input type="number" name="position" value="{{ team['Last Season Position'] }}" required><br>
+    <button type="submit" class="btn btn-success">Update Team</button>
+</form>
+{% endblock %}

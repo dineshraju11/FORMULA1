@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="text-center mb-4">Edit Driver: {{ name }}</h2>
+
+<form method="post" action="/drivers/edit/{{ name }}" class="container" style="max-width: 600px;">
+
+    <div class="form-group mb-3">
+        <label>Age:</label>
+        <input type="number" name="age" value="{{ driver['Age'] }}" class="form-control" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Total Pole Positions:</label>
+        <input type="number" name="poles" value="{{ driver['Total Pole Positions'] }}" class="form-control" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Total Race Wins:</label>
+        <input type="number" name="wins" value="{{ driver['Total Race Wins'] }}" class="form-control" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Total Points Scored:</label>
+        <input type="number" name="points" value="{{ driver['Total Points Scored'] }}" class="form-control" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Total World Titles:</label>
+        <input type="number" name="titles" value="{{ driver['Total World Titles'] }}" class="form-control" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Total Fastest Laps:</label>
+        <input type="number" name="fastest_laps" value="{{ driver['Total Fastest Laps'] }}" class="form-control" required>
+    </div>
+
+    <div class="form-group mb-3">
+        <label>Team:</label>
+        <input type="text" name="team" value="{{ driver['Team'] }}" class="form-control" required>
+    </div>
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary">Update Driver</button>
+        <a href="/drivers/list" class="btn btn-secondary">Cancel</a>
+    </div>
+
+</form>
+
+{% endblock %}
