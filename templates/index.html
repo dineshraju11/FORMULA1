@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-center mb-4">🏎️ Welcome Racers 🏁</h2>
+
+<div class="container text-center">
+    <!-- Drivers Section -->
+    <h3 class="mt-4">Drivers</h3>
+    <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
+        <a href="/drivers/add" class="btn btn-warning">Add Driver</a>
+        <a href="/drivers/query" class="btn btn-info">Query Drivers</a>
+        <a href="/drivers/compare" class="btn btn-primary">Compare Drivers</a>
+        <a href="/drivers/list" class="btn btn-success">View All Drivers</a> <!-- New Link -->
+    </div>
+
+    <!-- Teams Section -->
+    <h3 class="mt-4">Teams</h3>
+    <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
+        <a href="/teams/add" class="btn btn-warning">Add Team</a>
+        <a href="/teams/query" class="btn btn-info">Query Teams</a>
+        <a href="/teams/compare" class="btn btn-primary">Compare Teams</a>
+        <a href="/teams/list" class="btn btn-success">View All Teams</a> <!-- New Link -->
+    </div>
+
+    <!-- Optional Future Section -->
+    <h3 class="mt-5">Statistics & Leaderboards (Coming Soon!)</h3>
+    <div class="d-flex justify-content-center flex-wrap gap-3 mb-4">
+        <a href="#" class="btn btn-secondary disabled">Top Drivers</a>
+        <a href="#" class="btn btn-secondary disabled">Top Teams</a>
+    </div>
+
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
+
+<script>
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyDLqQ9HFXgE9i6-8b9VXAVGxOScDSJFtpA",
+    authDomain: "f1databaseproject-7688d.firebaseapp.com",
+    projectId: "f1databaseproject-7688d",
+    storageBucket: "f1databaseproject-7688d.appspot.com",
+    messagingSenderId: "742229075357",
+    appId: "1:742229075357:web:e64ae81cab589fd9f4fb74"
+  };
+  firebase.initializeApp(firebaseConfig);
+
+  // Auth state listener
+  firebase.auth().onAuthStateChanged((user) => {
+    const userInfoDiv = document.getElementById('user-info');
+    const loginBtn = document.getElementById('login-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    if (user) {
+      userInfoDiv.innerHTML = `Logged in as: ${user.email}`;
+      loginBtn.style.display = 'none';
+      logoutBtn.style.display = 'inline-block';
+    } else {
+      userInfoDiv.innerHTML = 'Not logged in';
+      loginBtn.style.display = 'inline-block';
+      logoutBtn.style.display = 'none';
+    }
+  });
+
+  // Login function
+  document.getElementById('login-btn').addEventListener('click', () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup(provider)
+      .then((result) => console.log("Logged in as:", result.user.email))
+      .catch((error) => console.error("Login failed:", error.message));
+  });
+
+  // Logout function
+  document.getElementById('logout-btn').addEventListener('click', () => {
+    firebase.auth().signOut().then(() => console.log("Logged out"));
+  });
+</script>
+
+{% endblock %}
